@@ -68,7 +68,23 @@ spring:
           enabled: true
         watch-delay: 30000
 
+# 因为 OpenFeign 组件默认将日志信息以 debug 模式输出，而默认情况下 Spring Boot 的日志级别是 Info，
+# 因此我们必须将应用日志的打印级别改为 debug 后才能看到 OpenFeign 的日志
 logging:
   level:
-    com.broadview.coupon: debug
+    io.zgc.coupon.customer.feign.TemplateService: debug
+    io.zgc.coupon.customer.feign.CalculationService: debug
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 2000
+      coupon-template-serv:
+        connectTimeout: 1000
+        readTimeout: 1500
+  circuitbreaker:
+    enabled: true
+
 
